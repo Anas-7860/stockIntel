@@ -1,0 +1,101 @@
+⏳ Your Time Starts Now!
+Take your time and enjoy working on this assignment. Ideally, it can be completed within 2–3 days, but if you are newer to coding, feel free to take up to 7 days.
+With the help of tools like ChatGPT or GitHub Copilot, the technical part can be done quite quickly. However, we have intentionally given more time so that you can explore the codebase, understand the technology stack, and think creatively about your solution.
+This is not just about finishing fast — it’s about how you approach the problem and how well you present your ideas.
+
+🚀 Internship Assignment — Stock Data Intelligence Dashboard
+🧭 Introduction
+First of all, thank you for your interest in this internship!
+We received a large number of applications, and we truly appreciate the time and enthusiasm shown by everyone who applied.
+To help us identify passionate and curious candidates, we’ve designed this small assignment. Think of it as an opportunity to showcase your skills, creativity, and problem-solving ability.
+This task is meant to evaluate:
+Your coding approach 
+Your ability to work with real-world financial data 
+Your data visualization and design thinking 
+Your curiosity and creativity 
+Don’t worry about making it perfect. What matters most is your effort, your thinking process, and how you structure your solution.
+We are excited to see how you approach the problem and what unique ideas you bring. Your work here will play an important role in the shortlisting and final selection process.
+Good luck, and most importantly — have fun building it! 🚀
+
+
+🎯 Objective
+Build a mini financial data platform that demonstrates your ability to:
+Collect and clean real or mock stock market data
+Build REST APIs using Python
+Visualize insights through simple charts
+Apply your creativity and analytical thinking
+
+⚙️ Tech Stack (Preferred)
+Language: Python
+Backend Framework: FastAPI / Flask
+Database: PostgreSQL / SQLite
+Libraries: Pandas, NumPy, Requests, Matplotlib / Plotly / Chart.js
+Frontend (Bonus): HTML + JS / React
+Deployment (Optional): Render / Oracle Cloud / GitHub Pages
+
+
+
+
+🧩 Assignment Tasks
+Part 1 — Data Collection & Preparation
+Collect stock market data using any one or more methods:
+Download daily NSE/BSE data (e.g., bhavcopy CSVs)
+Fetch data using public APIs (like yfinance, Alpha Vantage, or any open source)
+Clean and organize it with Pandas
+Perform the following transformations:
+Handle missing values and incorrect formats
+Convert date columns properly
+Add calculated metrics:
+Daily Return = (CLOSE - OPEN) / OPEN
+7-day Moving Average
+52-week High/Low
+💡 Creativity Tip:
+Add one custom metric or analysis — for example:
+Correlation between two companies
+A volatility score
+A mock “sentiment” index
+
+Part 2 — Backend API Development
+Create REST APIs for the following functionalities:
+💡 Add Swagger docs (FastAPI) or Postman collection if possible.
+
+
+Part 3 — Visualization Dashboard (Bonus but Recommended)
+Build a simple webpage or dashboard that:
+Displays a list of companies on the left
+Shows a chart of closing prices when one is clicked
+(Use Chart.js, Plotly, or any library)
+🎨 Extra Ideas to Shine:
+Add filters like “last 30 days”, “last 90 days”, “compare two stocks”
+Show key insights such as Top Gainers / Losers
+Add a “prediction” line using a basic ML model (optional)
+
+Part 4 — Optional Add-ons (For Outstanding Applicants)
+Go beyond the basics and impress us with:
+☁️ Deployment (Render / Oracle / GitHub Pages)
+🧠 AI or ML feature (e.g., simple price prediction)
+🧩 Dockerization for your backend
+⚡ Caching or async API handling
+
+📊 Evaluation Criteria
+
+📦 Submission Guidelines
+Upload your project on GitHub
+Include:
+app.py or main.py
+requirements.txt
+README.md explaining setup, logic, and insights
+Optional:
+Live deployed link (if hosted)
+Short video (2–3 min) demo of your project
+🕒 Submission Deadline: Within 5–7 days of receiving this assignment to support@jarnox.com .
+
+🏁 Outcome
+Candidates who demonstrate:
+Solid Python + Data foundation
+Clean API structure
+Creative problem-solving
+Optional visualization or AI integrations
+will be shortlisted for the internship and may get extended opportunities in real fintech and AI-based projects at Jarnox.
+
+

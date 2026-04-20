@@ -1,0 +1,16 @@
+=== Table 1 ===
+Endpoint | Method | Description
+/companies | GET | Returns a list of all available companies
+/data/{symbol} | GET | Returns last 30 days of stock data
+/summary/{symbol} | GET | Returns 52-week high, low, and average close
+/compare?symbol1=INFY&symbol2=TCS | GET | (Bonus) Compare two stocks’ performance
+
+=== Table 2 ===
+Category | Weight | Description
+Python & Data Handling | 30% | Clean, efficient, well-structured code
+API Design & Logic | 25% | REST endpoints, clarity, correctness
+Creativity in Data Insights | 15% | Original thought and added value
+Visualization & UI | 15% | Clear, functional, visually appealing
+Documentation | 10% | README, setup steps, explanations
+Bonus / Deployment | 5% | Cloud, AI, Docker, or unique innovation
+
