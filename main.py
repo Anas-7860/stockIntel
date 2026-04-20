@@ -4,6 +4,7 @@ Provides REST API endpoints for stock data, summaries, comparisons,
 top gainers/losers, and basic ML price predictions.
 """
 
+import os
 from fastapi import FastAPI, Depends, Query, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -12,7 +13,7 @@ from sqlalchemy import func, desc, asc
 from datetime import date, timedelta
 import numpy as np
 
-from database import engine, Base, get_db
+from database import engine, Base, get_db, IS_VERCEL
 from models import Company, StockData
 from data_collector import run_collection
 
@@ -26,8 +27,9 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# ── Serve static files ──
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# ── Serve static files (local dev only; Vercel uses CDN from public/) ──
+if not IS_VERCEL:
+    app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # ──────────────────────────────────────────────
@@ -49,11 +51,13 @@ def startup_event():
 
 
 # ──────────────────────────────────────────────
-#  ROOT — serve the dashboard
+#  ROOT — serve the dashboard (local dev only)
 # ──────────────────────────────────────────────
-@app.get("/", include_in_schema=False)
-def root():
-    return FileResponse("static/index.html")
+if not IS_VERCEL:
+    @app.get("/", include_in_schema=False)
+    def root():
+        return FileResponse("static/index.html")
+
 
 
 # ──────────────────────────────────────────────

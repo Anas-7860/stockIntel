@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Stock Data Intelligence Dashboard — Real-time Indian stock market data, analysis, and ML-based price predictions.">
+    <title>Stock Intelligence Dashboard | JarNox</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+</head>
+<body>
+
+    <!-- Mobile menu toggle -->
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle sidebar">☰</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="app-container">
+        <!-- ═══ Sidebar ═══ -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">📊</div>
+                    <h1>StockIntel</h1>
+                </div>
+                <div class="logo-subtitle">Intelligence Dashboard</div>
+            </div>
+
+            <div class="search-container">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="companySearch" placeholder="Search companies..." autocomplete="off">
+                </div>
+            </div>
+
+            <div class="company-list" id="companyList">
+                <div class="loading-overlay">
+                    <div class="spinner"></div>
+                    <span class="loading-text">Loading companies...</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ═══ Main Content ═══ -->
+        <main class="main-content" id="mainContent">
+            <!-- Welcome State (shown initially) -->
+            <div class="welcome-state" id="welcomeState">
+                <div class="welcome-icon">📈</div>
+                <h2>Welcome to StockIntel</h2>
+                <p>Select a company from the sidebar to explore stock data, visualizations, and AI-powered predictions.</p>
+            </div>
+
+            <!-- Dashboard Content (shown after selecting a company) -->
+            <div id="dashboardContent" style="display: none;">
+                <!-- Header -->
+                <div class="content-header">
+                    <div class="header-left">
+                        <h2 id="selectedCompanyName">—</h2>
+                        <p id="selectedCompanySymbol">Select a company to get started</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn" id="refreshBtn" title="Refresh data">🔄 Refresh</button>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid" id="statsGrid">
+                    <div class="stat-card">
+                        <div class="stat-label">Latest Close</div>
+                        <div class="stat-value" id="statClose">—</div>
+                        <div class="stat-sub" id="statDate">—</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">52-Week High</div>
+                        <div class="stat-value" id="statHigh52">—</div>
+                        <div class="stat-sub">Annual peak</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">52-Week Low</div>
+                        <div class="stat-value" id="statLow52">—</div>
+                        <div class="stat-sub">Annual trough</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Daily Return</div>
+                        <div class="stat-value" id="statReturn">—</div>
+                        <div class="stat-sub" id="statVolatility">Volatility: —</div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tab-container">
+                    <button class="tab-btn active" data-tab="chart" id="tabChart">📈 Price Chart</button>
+                    <button class="tab-btn" data-tab="compare" id="tabCompare">⚖️ Compare</button>
+                    <button class="tab-btn" data-tab="predict" id="tabPredict">🧠 Prediction</button>
+                </div>
+
+                <!-- Tab: Price Chart -->
+                <div class="tab-content active" id="tabContentChart">
+                    <div class="chart-section card">
+                        <div class="card-header">
+                            <span class="card-title">📈 Closing Price & 7-Day SMA</span>
+                            <div class="chart-filters" id="chartFilters">
+                                <button class="chart-filter-btn active" data-days="30">30D</button>
+                                <button class="chart-filter-btn" data-days="90">90D</button>
+                                <button class="chart-filter-btn" data-days="180">6M</button>
+                                <button class="chart-filter-btn" data-days="365">1Y</button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="priceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Compare -->
+                <div class="tab-content" id="tabContentCompare">
+                    <div class="compare-section card">
+                        <div class="card-header">
+                            <span class="card-title">⚖️ Stock Comparison</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="compare-controls">
+                                <select class="compare-select" id="compareStock1"></select>
+                                <span class="compare-vs">VS</span>
+                                <select class="compare-select" id="compareStock2"></select>
+                                <button class="btn btn-primary" id="compareBtn">Compare</button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="compareChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Prediction -->
+                <div class="tab-content" id="tabContentPredict">
+                    <div class="prediction-section card">
+                        <div class="card-header">
+                            <span class="card-title">🧠 AI Price Prediction</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="prediction-info" id="predictionInfo"></div>
+                        </div>
+                        <div class="prediction-chart-container">
+                            <canvas id="predictionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Insights: Gainers & Losers -->
+                <div class="insights-grid">
+                    <div class="card gainer">
+                        <div class="card-header">
+                            <span class="card-title">🟢 Top Gainers</span>
+                        </div>
+                        <div class="card-body">
+                            <ul class="insight-list" id="gainersList">
+                                <li class="loading-overlay"><div class="spinner"></div></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card loser">
+                        <div class="card-header">
+                            <span class="card-title">🔴 Top Losers</span>
+                        </div>
+                        <div class="card-body">
+                            <ul class="insight-list" id="losersList">
+                                <li class="loading-overlay"><div class="spinner"></div></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
