@@ -4,6 +4,12 @@ Fetches stock data from Yahoo Finance using yfinance, cleans it with Pandas,
 calculates metrics, and stores everything in the SQLite database.
 """
 
+import os
+
+# On Vercel, redirect yfinance cache to /tmp (filesystem is read-only)
+if os.environ.get("VERCEL") == "1":
+    os.environ["XDG_CACHE_HOME"] = "/tmp/.cache"
+
 import yfinance as yf
 import pandas as pd
 import numpy as np
